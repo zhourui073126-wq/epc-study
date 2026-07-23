@@ -54,6 +54,10 @@
     return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
       .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
   }
+  function esc(t) {
+    return String(t == null ? '' : t).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
   function rec(n) { return S[T.key][n] || {}; }
   function firstOpen() {
     for (var i = 0; i < T.days.length; i++) {
@@ -176,9 +180,16 @@
 
     $('dQ').innerHTML = d.qa.map(function (q, i) {
       var m = (r.marks || {})[i];
+      var note = (r.notes || {})[i] || '';
       var cls = m === 1 ? ' ok' : (m === 0 ? ' no' : '');
+      // 已评分过的题，答案保持展开
+      if (m === 0 || m === 1) cls += ' open shown';
       return '<div class="q' + cls + '" data-i="' + i + '">' +
         '<div class="qt"><span class="qi">' + pad(i + 1) + '</span><span>' + md(q.q) + '</span></div>' +
+        '<div class="myans">' +
+          '<textarea class="ansbox" data-i="' + i + '" placeholder="先合上原文，写下你的答案…">' + esc(note) + '</textarea>' +
+          '<button class="reveal">查看正确答案 ↓</button>' +
+        '</div>' +
         '<div class="qa">' + md(q.a) + '</div>' +
         '<div class="mark"><button class="mk-ok" data-v="1">答对</button>' +
         '<button class="mk-no" data-v="0">没答上</button></div></div>';
@@ -186,6 +197,17 @@
 
     Array.prototype.forEach.call($('dQ').querySelectorAll('.q'), function (el) {
       el.querySelector('.qt').onclick = function () { el.classList.toggle('open'); };
+      // 查看答案
+      var rev = el.querySelector('.reveal');
+      if (rev) rev.onclick = function () { el.classList.add('shown'); };
+      // 自己的答案：只存不重绘，避免输入框失焦
+      var ta = el.querySelector('.ansbox');
+      if (ta) ta.oninput = function () {
+        var o = S[T.key][cur] = S[T.key][cur] || {};
+        o.notes = o.notes || {};
+        o.notes[ta.getAttribute('data-i')] = ta.value;
+        save();
+      };
       Array.prototype.forEach.call(el.querySelectorAll('.mark button'), function (b) {
         b.onclick = function () {
           var o = S[T.key][cur] = S[T.key][cur] || {};
