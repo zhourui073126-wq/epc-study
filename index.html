@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EPC 主合同学习打卡</title>
+<meta name="description" content="Masdar Hybrid Project 1 EPC 主合同学习打卡工具:42天主线 + 21天索赔专线">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<div class="mast">
+  <h1>Masdar Hybrid Project 1 · EPC主合同</h1>
+  <div class="sub">STUDY LOG · DBO1-2006857704 v38 PRE-EXECUTION</div>
+</div>
+
+<div class="tracks" id="tracks"></div>
+
+<div class="stripwrap">
+  <div class="striplabels" id="striplabels"></div>
+  <div class="strip" id="strip"></div>
+  <div class="stripfoot">
+    <span>已完成 <b id="stDone">0</b> / <b id="stTotal">42</b></span>
+    <span>连续打卡 <b id="stStreak">0</b> 天</span>
+    <span>累计自测 <b id="stAcc">—</b></span>
+    <span>预计完成 <b id="stEta">—</b></span>
+  </div>
+</div>
+
+<div class="warn" id="warn">浏览器存储不可用 —— 进度仅保存在当前标签页。用 http(s) 打开(如 GitHub Pages)即可正常保存。</div>
+
+<div class="card">
+  <div class="dhead">
+    <div class="dnum" id="dNum">01</div>
+    <div><div class="dmeta" id="dMeta"></div></div>
+    <div class="dtitle" id="dTitle"></div>
+  </div>
+  <div id="dScope"></div>
+  <div class="qhead">自测 · 先合上原文作答,再展开对照</div>
+  <div id="dQ"></div>
+  <div class="bar">
+    <button class="btn primary" id="btnCheck">打卡完成</button>
+    <button class="timer" id="btnTimer" title="单击开始/暂停,双击归零">▶ 60:00</button>
+    <button class="btn ghost" id="btnPrev">← 上一天</button>
+    <button class="btn ghost" id="btnNext">下一天 →</button>
+    <span class="score" id="dScore"></span>
+  </div>
+</div>
+
+<div class="tabs" id="tabs"></div>
+<div id="refs"></div>
+
+<footer>
+  <span>主线 60 分钟 / 索赔专线 30 分钟 · 超时就停,不补课</span>
+  <span>PRE-EXECUTION v38 · 方括号数值待签署版核对</span>
+</footer>
+
+<script src="data/track-main.js"></script>
+<script src="data/track-claims.js"></script>
+<script src="data/reference.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
