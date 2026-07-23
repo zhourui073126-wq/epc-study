@@ -182,13 +182,13 @@
       var m = (r.marks || {})[i];
       var note = (r.notes || {})[i] || '';
       var cls = m === 1 ? ' ok' : (m === 0 ? ' no' : '');
-      // 已评分过的题，答案保持展开
-      if (m === 0 || m === 1) cls += ' open shown';
+      var isShown = (m === 0 || m === 1);
+      if (isShown) cls += ' open shown';
       return '<div class="q' + cls + '" data-i="' + i + '">' +
         '<div class="qt"><span class="qi">' + pad(i + 1) + '</span><span>' + md(q.q) + '</span></div>' +
         '<div class="myans">' +
           '<textarea class="ansbox" data-i="' + i + '" placeholder="先合上原文，写下你的答案…">' + esc(note) + '</textarea>' +
-          '<button class="reveal">查看正确答案 ↓</button>' +
+          '<button class="reveal">' + (isShown ? '收起答案 ↑' : '查看正确答案 ↓') + '</button>' +
         '</div>' +
         '<div class="qa">' + md(q.a) + '</div>' +
         '<div class="mark"><button class="mk-ok" data-v="1">答对</button>' +
@@ -199,7 +199,10 @@
       el.querySelector('.qt').onclick = function () { el.classList.toggle('open'); };
       // 查看答案
       var rev = el.querySelector('.reveal');
-      if (rev) rev.onclick = function () { el.classList.add('shown'); };
+      if (rev) rev.onclick = function () {
+        el.classList.toggle('shown');
+        rev.textContent = el.classList.contains('shown') ? '收起答案 ↑' : '查看正确答案 ↓';
+      };
       // 自己的答案：只存不重绘，避免输入框失焦
       var ta = el.querySelector('.ansbox');
       if (ta) ta.oninput = function () {
