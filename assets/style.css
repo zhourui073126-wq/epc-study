@@ -69,7 +69,7 @@ strong{font-weight:600}
 .qi{font-family:var(--mono);font-size:12px;color:var(--soft);flex:0 0 auto;padding-top:3px}
 .qa{display:none;margin-top:8px;font-size:14.5px;color:#26333D;background:rgba(255,255,255,.42);
     padding:11px 13px;border:1px solid var(--rule)}
-.q.shown .qa{display:block}
+.q.open.shown .qa{display:block}
 
 /* 自己的答案 */
 .myans{display:none;margin-top:9px}
@@ -82,10 +82,10 @@ strong{font-weight:600}
 .reveal{margin-top:7px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;padding:5px 13px;
     border:1px solid var(--rule);background:transparent;color:var(--soft);cursor:pointer}
 .reveal:hover{border-color:var(--stamp);color:var(--stamp)}
-.q.shown .reveal{display:none}
+.q.shown .reveal{border-color:var(--stamp);color:var(--stamp)}
 
 .mark{margin-top:9px;display:none;gap:8px}
-.q.shown .mark{display:flex}
+.q.open.shown .mark{display:flex}
 .mark button{font-family:var(--mono);font-size:11px;letter-spacing:.08em;padding:4px 12px;
     border:1px solid var(--rule);background:transparent;color:var(--soft);cursor:pointer}
 .mark button:hover{border-color:var(--ink);color:var(--ink)}
